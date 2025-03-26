@@ -1,5 +1,16 @@
 #!/usr/bin/env node
 import { got } from "got";
+import {Command} from "commander";
+// Create a new Command Program
+const program = new Command();
+
+// Create a new Program
+program
+    .name("my-cli") // Set the name of the program
+    .description("Back office for My App") // Set the description
+    .version("1.0.0"); // Set the version
+// Parse the arguments from process.argv
+program.parse();
 
 const API = "http://localhost:3000";
 
