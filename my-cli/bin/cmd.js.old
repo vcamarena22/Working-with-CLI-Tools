@@ -1,10 +1,9 @@
 #!/usr/bin/env node
-import { got } from "got";
+
+import got from 'got'
 
 const API = "http://localhost:3000";
-
-// Log the usage of the m¿commando to the console
-const usage = (msg = "Back office for My App") => {
+const usage = (msg = 'Back office for My App') => {
     console.log(`\n${msg}\n`);
     console.log("Usage: cmd <ID> <AMOUNT>");
 };
@@ -32,10 +31,10 @@ if (isNaN(amount)) {
 try {
     // Usage GOT to make a POST request to the API
     await got.post(`${API}/orders/${argID}`, {
-	json: {amount},
+	json: { amount },
     });
     // Log the result to the console
-    console.log(`Order ${argID} updated with amount ${amount}`);
+    console.log(`Order ${argID} update with amount ${amount}`);
 } catch (err) {
     // If there is an error, log it to the console and exit
     console.log(err.message);
