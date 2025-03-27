@@ -1,6 +1,7 @@
  #!/usr/bin/env node
-import { got } from "got";
+//import { got } from "got";
 import { Command } from "commander";
+import { update } from "../src/utils.js";
 // Create a new Command Program
 const program = new Command();
 const API = "http://localhost:3000";
