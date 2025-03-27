@@ -10,6 +10,38 @@ const API = "http://localhost:3000";
 const usage = (msg = "Back office for My App") => {
   console.log(`\n${msg}\n`);
 };
+// Log the error to the console
+export const error = (msg) => {
+    console.error(`\n${msg}\n`);
+};
+// Add a new order
+export async function add(...args) {
+    // Destructure the arguments
+    let [category, id, name, amount, info] = args;
+    log(`Adding item ${id} with amount ${amount}`);
+    try {
+	if (isNaN(+amount)) {
+	    error(`Error: <AMOUNT> must be a number`);
+	    process.exit(1);
+	}
+	// Use GOT to make a POST request to the API
+	await got.post(`${API}/${category}`, {
+	    json: {
+		id,
+		name,
+		rrp: +amount,
+		info: info.join(" "),
+	    },
+	});
+	// Log the results to the console
+	log(`Item "${id}:${name}" has been added to the ${category} category`);
+    } catch (err) {
+	// If there is an error, log it to the console and exit
+	error(err.message);
+	process.exit(1);
+    }
+}
+
 // Update the order with the given ID
 async function updateItem(id, amount) {
   usage(`Updating order ${id} with amount ${amount}`);
