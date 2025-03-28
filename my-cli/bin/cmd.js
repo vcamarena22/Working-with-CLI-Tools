@@ -102,6 +102,29 @@ program
 	await add(category, id, name, amount, info)
     );
 
+// Create a command for listing categories
+program
+// Set the command name
+    .command("list")
+// Set the command description
+    .description("List categories")
+// Set the category to be optional
+    .argument("[CATEGORY]", "Category to list IDs for")
+// Set the option to list all categories
+    .option("-a, --all", "List all categories")
+// Set the action to be excecuted when the command is run
+    .action(async (args, opts) => {
+	if (args && opts.all)
+	    throw new Error("Cannot specify both category and 'all'");
+	if (opts.all || args === "all") {
+	    listCategories();
+	} else if (args === "confectionery" || args === "electronics") {
+	    await listCategoryItems(args);
+	} else {
+	    throw new Error("Invalid category specified");
+	}
+    });
+
 // List the categories
 export function listCategories() {
     log("Listing categories");
